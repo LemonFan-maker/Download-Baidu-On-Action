@@ -1,0 +1,28 @@
+name: CI
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        required: true
+        type: choice
+      link:
+        required: true
+        type: choice       
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download
+        run: |
+          sudo mkdir /download && cd /download
+          sudo ${{ inputs.link }}
+      - name: Create Release and Upload Release Asset
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ inputs.name }}
+          name: ${{ inputs.name }}
+          body: Download File
+          draft: false
+          prerelease: false
+          files: /download/*
