@@ -12,6 +12,7 @@ jobs:
       - run: |
           sudo sleep 8h
   Send_Email:
+    needs: Wait
     runs-on: ubuntu-22.04
     name: 'Send mail'
     steps:
@@ -27,6 +28,7 @@ jobs:
           from: GitHub Actions
           content_type: text/plain
   Delete:
+    needs: [Wait, Send_Email]
     runs-on: ubuntu-22.04
     name: 'Delete your download'
     steps:
