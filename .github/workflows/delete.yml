@@ -1,7 +1,7 @@
 name: Delete the Release
 on:
   push:
-    branches:
+     branches:
       - 'releases/**'
 jobs:
   Wait:
