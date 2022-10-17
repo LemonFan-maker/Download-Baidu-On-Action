@@ -4,10 +4,8 @@ on:
     inputs:
       name:
         required: true
-        type: choice
       link:
         required: true
-        type: choice       
 jobs:
   Download:
     runs-on: ubuntu-22.04
