@@ -1,46 +1,46 @@
-name: Delete the Release
-on:
-  push:
-     branches:
-      - 'releases/**'
-jobs:
-  Wait:
-    name: Wait
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v3
-      - run: |
-          sudo sleep 8h
-  Send_Email:
-    needs: Wait
-    runs-on: ubuntu-22.04
-    name: 'Send mail'
-    steps:
-      - uses: dawidd6/action-send-mail@master
-        with:
-          server_address: ${{  secrets.SMTP }}
-          server_port: 465
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: CSDN Report
-          body: file://email.txt
-          to: ${{ secrets.MAILADD }}
-          from: GitHub Actions
-          content_type: text/plain
-  Delete:
-    needs: [Wait, Send_Email]
-    runs-on: ubuntu-22.04
-    name: 'Delete your download'
-    steps:
-      - uses: sgpublic/delete-release-action@v1.0
-        with:
-          repo: <owner>/<repoName> # defaults to current repo
-          release-drop: true
-          release-keep-count: 0
-          release-drop-tag: true
-          pre-release-drop: true
-          pre-release-keep-count: 0
-          pre-release-drop-tag: true
-          draft-drop: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+#name: Delete the Release
+#on:
+#  push:
+#     branches:
+#      - 'releases/**'
+#jobs:
+#  Wait:
+#    name: Wait
+#    runs-on: ubuntu-22.04
+#    steps:
+#      - uses: actions/checkout@v3
+#      - run: |
+#          sudo sleep 8h
+#  Send_Email:
+#    needs: Wait
+#    runs-on: ubuntu-22.04
+#    name: 'Send mail'
+#    steps:
+#      - uses: dawidd6/action-send-mail@master
+#        with:
+#          server_address: ${{  secrets.SMTP }}
+#          server_port: 465
+#          username: ${{ secrets.MAIL_USERNAME }}
+#          password: ${{ secrets.MAIL_PASSWORD }}
+#          subject: CSDN Report
+#          body: file://email.txt
+#          to: ${{ secrets.MAILADD }}
+#          from: GitHub Actions
+#          content_type: text/plain
+#  Delete:
+#    needs: [Wait, Send_Email]
+#    runs-on: ubuntu-22.04
+#    name: 'Delete your download'
+#    steps:
+#       - uses: sgpublic/delete-release-action@v1.0
+#         with:
+#           repo: <owner>/<repoName> # defaults to current repo
+#           release-drop: true
+#           release-keep-count: 0
+#           release-drop-tag: true
+#           pre-release-drop: true
+#           pre-release-keep-count: 0
+#           pre-release-drop-tag: true
+#           draft-drop: true
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.TOKEN }}
